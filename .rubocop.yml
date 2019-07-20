@@ -1,0 +1,18 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+
+Metrics/LineLength:
+  Max: 120
+
+Rails:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+# RSpec cops
+RSpec/NestedGroups:
+  Max: 4
