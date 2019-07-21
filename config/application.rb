@@ -36,6 +36,12 @@ module VideoTrim
 
     config.generators do |g|
       g.orm :mongoid
+      g.test_framework :rspec, fixture: false
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+      g.assets false
+      g.helper false
     end
+
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
