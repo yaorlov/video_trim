@@ -15,8 +15,11 @@ gem 'puma', '~> 3.11'
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
+
+# Authentication
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+gem 'jwt_sessions', '~> 2.3', '>= 2.3.1'
 
 # Trailblazer bundle
 gem 'trailblazer-endpoint', github: 'trailblazer/trailblazer-endpoint'
@@ -24,6 +27,9 @@ gem 'trailblazer-rails', '~> 2.1', '>= 2.1.7'
 
 # dry-rb
 gem 'dry-validation', '0.11.1'
+
+# In-memory store
+gem 'redis'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

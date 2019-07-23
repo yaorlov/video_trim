@@ -4,9 +4,14 @@ AllCops:
   Exclude:
     - 'vendor/**/*'
 
+Lint/UnreachableCode:
+  Exclude:
+    - '**/operation/*'
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - 'config/environments/*'
 
 Metrics/LineLength:
   Max: 120
@@ -28,6 +33,10 @@ Style/Documentation:
 Style/MixinUsage:
   Exclude:
     - 'bin/*'
+
+Style/SignalException:
+  Exclude:
+    - '**/operation/*'
 
 # RSpec cops
 RSpec/NestedGroups:

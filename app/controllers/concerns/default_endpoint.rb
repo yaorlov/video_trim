@@ -12,6 +12,7 @@ module DefaultEndpoint
       match.gone { head(:gone) }
       match.invalid { |result| render_errors(result, :unprocessable_entity) }
       match.no_content { head(:no_content) }
+      match.unauthenticated { head(:unauthenticated) }
       match.success { |result| render_response(result, :ok) }
     end
   end

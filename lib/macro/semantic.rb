@@ -10,7 +10,7 @@ module Macro
       [Trailblazer::Activity::Right, [ctx, flow_options]]
     }
 
-    { task: task, id: 'semantic' }
+    { task: task, name: "semantic:#{success || failure}" }
   end
   # rubocop:enable Naming/MethodName
 end

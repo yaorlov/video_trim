@@ -39,6 +39,12 @@ module Api
         match: ->(result) { result.success? && result[:renderer_options].nil? },
         resolve: ->(result) { result }
       ),
+      unauthenticated: Dry::Matcher::Case.new(
+        match: lambda { |result|
+          result[:failure_semantic] == :unauthenticated
+        },
+        resolve: ->(result) { result }
+      ),
       success: Dry::Matcher::Case.new(
         match: ->(result) { result.success? },
         resolve: ->(result) { result }
