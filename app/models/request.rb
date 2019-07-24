@@ -8,5 +8,4 @@ class Request
   belongs_to :user
 
   field :trimming_start_time, type: Integer
-  field :trimming_end_time, type: Integer
 end

@@ -8,6 +8,7 @@ describe 'Api::V1::Users::Video', type: :request do
   describe 'POST #create' do
     include ApiDoc::V1::Users::Video::Create
 
+    # TODO: add test for case without auth token and with invalid auth token
     describe 'Success' do
       let(:user) { create :user }
       let(:valid_params) do
@@ -15,7 +16,7 @@ describe 'Api::V1::Users::Video', type: :request do
           name: 'test video',
           source_file: fixture_file_upload('files/short_video.mp4', 'video/mp4'),
           trimming_start_time: 1,
-          trimming_end_time: 3
+          duration: 2
         }
       end
 

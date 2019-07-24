@@ -34,6 +34,8 @@ module VideoTrim
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.generators do |g|
       g.orm :mongoid
       g.test_framework :rspec, fixture: false

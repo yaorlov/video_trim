@@ -29,7 +29,7 @@ gem 'trailblazer-rails', '~> 2.1', '>= 2.1.7'
 gem 'dry-validation', '0.11.1'
 
 # In-memory store
-gem 'redis'
+gem 'redis', '~> 4.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -41,10 +41,13 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # gem 'rack-cors'
 
 # Files uploading
-gem 'shrine-mongoid'
+gem 'shrine-mongoid', '~> 0.2'
 
 # Video processing
-gem 'streamio-ffmpeg'
+gem 'streamio-ffmpeg', '~> 3.0'
+
+# Background jobs
+gem 'sidekiq', '~> 5.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

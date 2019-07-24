@@ -54,11 +54,25 @@ Rails.application.configure do
     Bullet.bullet_logger = true
     Bullet.raise = true
 
+    redis_creds = Rails.application.credentials[:test][:redis]
+
     JWTSessions.token_store = :redis, {
-      redis_host: ENV.fetch('REDIS_HOST', 'localhost'),
-      redis_port: ENV.fetch('REDIS_PORT', 6379),
+      redis_host: redis_creds[:host],
+      redis_port: redis_creds[:port],
       redis_db_name: '0',
       token_prefix: 'test_jwt_'
     }
+
+    Sidekiq.configure_server do |config|
+      config.redis = {
+        url: "redis://#{redis_creds[:host]}:#{redis_creds[:port]}/1"
+      }
+    end
+
+    Sidekiq.configure_client do |config|
+      config.redis = {
+        url: "redis://#{redis_creds[:host]}:#{redis_creds[:port]}/1"
+      }
+    end
   end
 end

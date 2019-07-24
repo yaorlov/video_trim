@@ -12,6 +12,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'database_cleaner'
 require 'dox'
+require 'sidekiq/testing'
 
 Dir[Rails.root.join('spec', 'api_doc', '**', '*.rb')].each { |f| require f }
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
@@ -57,6 +58,7 @@ RSpec.configure do |config|
   config.include FixtureHelpers
 
   config.before(:suite) do
+    Sidekiq::Worker.clear_all
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
   end

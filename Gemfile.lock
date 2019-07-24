@@ -79,6 +79,7 @@ GEM
     coderay (1.1.2)
     colorize (0.8.1)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     content_disposition (1.0.0)
     crass (1.0.4)
     database_cleaner (1.7.0)
@@ -194,6 +195,8 @@ GEM
     public_suffix (3.1.1)
     puma (3.12.1)
     rack (2.0.7)
+    rack-protection (2.0.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.3)
@@ -281,6 +284,11 @@ GEM
     shrine-mongoid (0.2.4)
       mongoid (>= 5.0)
       shrine (~> 2.4)
+    sidekiq (5.2.7)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack (>= 1.5.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -350,15 +358,16 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.3)
   rails_best_practices
-  redis
+  redis (~> 4.0)
   rspec-rails
   rubocop
   rubocop-rspec
   shrine-memory
-  shrine-mongoid
+  shrine-mongoid (~> 0.2)
+  sidekiq (~> 5.2)
   spring
   spring-watcher-listen (~> 2.0.0)
-  streamio-ffmpeg
+  streamio-ffmpeg (~> 3.0)
   trailblazer-endpoint!
   trailblazer-rails (~> 2.1, >= 2.1.7)
   tzinfo-data

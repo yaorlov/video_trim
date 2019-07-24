@@ -14,18 +14,3 @@ class Video
   field :trimmed_file_data, type: String
   field :source_file_data, type: String
 end
-
-# User
-#   - videos
-#   - requests
-
-# Request
-#   - start
-#   - end
-#   - video source
-#   - status
-
-# Video
-#   - name
-#   - trimmed video link
-#   - duration
