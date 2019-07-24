@@ -5,7 +5,7 @@ module Api
     module Users
       class RegistrationsController < ApiController
         def create
-          endpoint Api::V1::User::Operation::Register
+          endpoint Api::V1::User::Registration::Operation::Create
         end
       end
     end

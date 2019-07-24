@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       namespace :users do
         resource :registration, only: :create
         resource :session, only: :create
+        resource :video, only: :create
       end
     end
   end

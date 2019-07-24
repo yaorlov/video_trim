@@ -83,3 +83,5 @@ en:
     email_unique?: email has already been taken
 
     password_confirmation?: password confirmation didn't match the password
+
+    greater_than_start_time?: trimming end time must be greater than start time

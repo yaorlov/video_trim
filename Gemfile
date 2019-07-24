@@ -40,6 +40,12 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+# Files uploading
+gem 'shrine-mongoid'
+
+# Video processing
+gem 'streamio-ffmpeg'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'bullet'
@@ -68,6 +74,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'shrine-memory'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

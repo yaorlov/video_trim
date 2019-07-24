@@ -5,6 +5,9 @@ class User
   include Mongoid::Timestamps
   include ActiveModel::SecurePassword
 
+  has_many :videos, dependent: :destroy
+  has_many :requests, dependent: :destroy
+
   field :email, type: String
   field :password_digest, type: String
 

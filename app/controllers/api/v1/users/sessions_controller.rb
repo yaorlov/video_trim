@@ -5,7 +5,7 @@ module Api
     module Users
       class SessionsController < ApiController
         def create
-          endpoint Api::V1::User::Operation::CreateSession
+          endpoint Api::V1::User::Session::Operation::Create
         end
       end
     end
