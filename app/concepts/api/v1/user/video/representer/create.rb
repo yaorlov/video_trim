@@ -10,7 +10,7 @@ module Api::V1::User::Video::Representer
 
     has_one :request do
       data do
-        @object.requests
+        @object.request
       end
     end
   end

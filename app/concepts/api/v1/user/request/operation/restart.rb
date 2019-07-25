@@ -30,12 +30,5 @@ module Api::V1::User::Request::Operation
         }
       }
     end
-
-    private
-
-    def restart_error_handler(exception, ctx)
-      ctx['operation_status'] = :execution_error
-      raise ActiveRecord::Rollback, exception.message
-    end
   end
 end
