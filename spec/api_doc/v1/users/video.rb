@@ -20,6 +20,10 @@ module ApiDoc
         document :create do
           action 'Create a new user video'
         end
+
+        document :index do
+          action 'Returns a list of user\'s trimmed videos'
+        end
       end
     end
   end

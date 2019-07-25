@@ -9,6 +9,10 @@ module Api
         def create
           endpoint Api::V1::User::Video::Operation::Create, current_user: current_user
         end
+
+        def index
+          endpoint Api::V1::User::Video::Operation::Index, current_user: current_user
+        end
       end
     end
   end
