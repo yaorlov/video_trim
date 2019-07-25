@@ -9,6 +9,10 @@ module Api
         def index
           endpoint Api::V1::User::Request::Operation::Index, current_user: current_user
         end
+
+        def restart
+          endpoint Api::V1::User::Request::Operation::Restart, current_user: current_user
+        end
       end
     end
   end

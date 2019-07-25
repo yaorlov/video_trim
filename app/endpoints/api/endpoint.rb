@@ -41,7 +41,13 @@ module Api
       ),
       unauthenticated: Dry::Matcher::Case.new(
         match: lambda { |result|
-          result[:failure_semantic] == :unauthenticated
+          result.failure? && result[:failure_semantic] == :unauthenticated
+        },
+        resolve: ->(result) { result }
+      ),
+      not_found: Dry::Matcher::Case.new(
+        match: lambda { |result|
+          result.failure? && result[:model].nil?
         },
         resolve: ->(result) { result }
       ),

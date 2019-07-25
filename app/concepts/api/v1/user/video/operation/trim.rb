@@ -9,8 +9,7 @@ module Api::V1::User::Video::Operation
 
     step Rescue(Mongoid::Errors::DocumentNotFound) {
       step :model
-    }
-    fail Macro::Semantic(failure: :not_found)
+    }, fail_fast: true
 
     step :start_processing
 

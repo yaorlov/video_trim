@@ -20,6 +20,10 @@ module ApiDoc
         document :index do
           action 'Returns a list of user\'s requests'
         end
+
+        document :restart do
+          action 'Returns restarted request data'
+        end
       end
     end
   end

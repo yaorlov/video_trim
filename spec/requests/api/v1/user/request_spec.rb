@@ -19,8 +19,7 @@ describe 'Api::V1::Users::Request', type: :request do
 
       it 'renders all requests', :dox do
         expect(response).to be_ok
-        # TODO: RequestSchema::Index ?
-        expect(response).to match_schema(RequestSchema::Success)
+        expect(response).to match_schema(RequestSchema::Index)
       end
     end
 
@@ -40,6 +39,49 @@ describe 'Api::V1::Users::Request', type: :request do
         it 'renders error data', :dox do
           expect(response).to be_unauthorized
           expect(response).to match_schema(ErrorSchema::Unauthorized)
+        end
+      end
+    end
+  end
+
+  describe 'POST #restart' do
+    include ApiDoc::V1::Users::Request::Restart
+
+    let(:failed_request) { create :request, user: user, status: Request::STATUSES[:failed] }
+
+    describe 'Success' do
+      before { post "/api/v1/users/requests/#{failed_request.id}/restart", headers: auth_header(user) }
+
+      it 'renders request data', :dox do
+        expect(response).to be_ok
+        expect(response).to match_schema(RequestSchema::Restart)
+      end
+    end
+
+    describe 'Fail' do
+      context 'when no auth headers passed' do
+        before { post "/api/v1/users/requests/#{failed_request.id}/restart" }
+
+        it 'renders error data', :dox do
+          expect(response).to be_unauthorized
+          expect(response).to match_schema(ErrorSchema::Unauthorized)
+        end
+      end
+
+      context 'when invalid auth token passed' do
+        before { post "/api/v1/users/requests/#{failed_request.id}/restart", headers: { 'Authorization' => 'token' } }
+
+        it 'renders error data', :dox do
+          expect(response).to be_unauthorized
+          expect(response).to match_schema(ErrorSchema::Unauthorized)
+        end
+      end
+
+      context 'when request does not exist' do
+        before { post "/api/v1/users/requests/#{BSON::ObjectId.new}/restart", headers: auth_header(user) }
+
+        it 'renders error data', :dox do
+          expect(response).to be_not_found
         end
       end
     end

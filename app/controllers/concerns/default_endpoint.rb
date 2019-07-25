@@ -3,7 +3,7 @@
 module DefaultEndpoint
   protected
 
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def default_handler
     lambda do |match|
       match.created { |result| result[:renderer_options] ? render_response(result, :created) : head(:created) }
@@ -13,10 +13,11 @@ module DefaultEndpoint
       match.invalid { |result| render_errors(result, :unprocessable_entity) }
       match.no_content { head(:no_content) }
       match.unauthenticated { head(:unauthenticated) }
+      match.not_found { head(:not_found) }
       match.success { |result| render_response(result, :ok) }
     end
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def endpoint(operation_class, options = {}, &block)
     Api::Endpoint.call(operation_class, default_handler, { **options, params: params.to_unsafe_hash }, &block)

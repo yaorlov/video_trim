@@ -7,7 +7,9 @@ Rails.application.routes.draw do
         resource :registration, only: :create
         resource :session, only: :create
         resources :videos, only: %i[create index]
-        resources :requests, only: :index
+        resources :requests, only: :index do
+          post 'restart', on: :member
+        end
       end
     end
   end
