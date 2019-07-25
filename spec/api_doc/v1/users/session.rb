@@ -7,13 +7,13 @@ module ApiDoc
         extend ::Dox::DSL::Syntax
 
         document :api do
-          resource 'Users' do
+          resource 'Sessions' do
             endpoint 'api/v1/users/session'
-            group 'Users'
+            group 'Sessions'
           end
 
-          group 'Users' do
-            desc 'Users group'
+          group 'Sessions' do
+            desc 'Sessions group'
           end
         end
 

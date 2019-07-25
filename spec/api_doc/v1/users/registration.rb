@@ -7,12 +7,12 @@ module ApiDoc
         extend ::Dox::DSL::Syntax
 
         document :api do
-          resource 'Users' do
+          resource 'Registrations' do
             endpoint 'api/v1/users/registration'
-            group 'Users'
+            group 'Registrations'
           end
 
-          group 'Users' do
+          group 'Registrations' do
             desc 'Users group'
           end
         end

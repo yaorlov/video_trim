@@ -39,7 +39,7 @@ describe 'Api::V1::Users::Video', type: :request do
       end
 
       context 'when invalid auth token passed' do
-        before { get '/api/v1/users/requests', headers: { 'Authorization' => 'token' } }
+        before { post '/api/v1/users/videos', headers: { 'Authorization' => 'token' } }
 
         it 'renders error data', :dox do
           expect(response).to be_unauthorized
