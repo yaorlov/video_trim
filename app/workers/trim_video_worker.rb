@@ -4,6 +4,6 @@ class TrimVideoWorker
   include Sidekiq::Worker
 
   def perform(request_id)
-    Api::V1::User::Video::Operation::Trim.call(request_id: request_id)
+    Api::V1::User::Video::Operation::Trim.call(params: { request_id: request_id })
   end
 end

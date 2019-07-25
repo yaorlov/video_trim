@@ -10,21 +10,18 @@ module Api::V1::User::Registration::Contract
 
     validation :default do
       configure do
-        option :form
+        def unique_email?(email)
+          User.where(email: email).empty?
+        end
       end
 
-      required(:email).filled(format?: URI::MailTo::EMAIL_REGEXP)
+      required(:email).filled(:unique_email?, format?: URI::MailTo::EMAIL_REGEXP)
       required(:password).filled(:str?, min_size?: Constants::PASSWORD_MIN_LENGTH,
                                         max_size?: Constants::PASSWORD_MAX_LENGTH)
       required(:password_confirmation).filled(:str?)
 
       validate(password_confirmation?: %i[password password_confirmation]) do |password, password_confirmation|
         password == password_confirmation
-      end
-
-      validate(email_unique?: [:email]) do
-        model = form.model
-        model.class.where(:id.nin => [model.id]).empty?
       end
     end
   end

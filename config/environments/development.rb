@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'shrine/storage/file_system'
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -51,18 +49,26 @@ Rails.application.configure do
     Bullet.bullet_logger = true
     Bullet.rails_logger = true
 
-    redis_creds = Rails.application.credentials[:development][:redis]
+    redis_host = ENV.fetch('REDIS_HOST', Rails.application.credentials.dig(:development, :redis, :host))
+    redis_port = ENV.fetch('REDIS_PORT', Rails.application.credentials.dig(:development, :redis, :port))
 
     JWTSessions.token_store = :redis, {
-      redis_host: redis_creds[:host],
-      redis_port: redis_creds[:port],
+      redis_host: redis_host,
+      redis_port: redis_port,
       redis_db_name: '0',
       token_prefix: 'jwt_'
     }
 
-    Shrine.storages = {
-      cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/cache'),
-      store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads')
-    }
+    Sidekiq.configure_server do |config|
+      config.redis = {
+        url: "redis://#{redis_host}:#{redis_port}/1"
+      }
+    end
+
+    Sidekiq.configure_client do |config|
+      config.redis = {
+        url: "redis://#{redis_host}:#{redis_port}/1"
+      }
+    end
   end
 end

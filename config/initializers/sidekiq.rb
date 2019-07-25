@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-redis_creds = Rails.application.credentials[Rails.env.to_sym][:redis]
+redis_creds = Rails.application.credentials.dig(Rails.env.to_sym, :redis) || {}
 redis_host = ENV.fetch('REDIS_HOST', redis_creds[:host])
 redis_port = ENV.fetch('REDIS_PORT', redis_creds[:port])
 

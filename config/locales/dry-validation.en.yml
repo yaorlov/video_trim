@@ -80,7 +80,7 @@ en:
 
     type?: "must be %{type}"
 
-    email_unique?: email has already been taken
+    unique_email?: email has already been taken
 
     password_confirmation?: password confirmation didn't match the password
 

@@ -6,7 +6,7 @@ class Api::V1::User::Video::Contract::Create < Reform::Form
   property :name
   property :source_file
   property :trimming_start_time, virtual: true
-  property :duration, virtual: true
+  property :duration
 
   validation do
     required(:name).filled(:str?)

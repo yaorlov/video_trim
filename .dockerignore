@@ -1,0 +1,10 @@
+.bundle
+.git*
+log/*
+tmp/*
+!tmp/pids/.keep
+vendor/bundle
+Dockerfile
+README.md
+venv/*
+/config/master.key

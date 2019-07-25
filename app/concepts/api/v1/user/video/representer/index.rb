@@ -5,7 +5,7 @@ module Api::V1::User::Video::Representer
     type 'videos'
 
     attribute :duration do
-      Time.zone.at(3).strftime(Constants::FFMPEG_TIME_FORMAT)
+      Time.zone.at(@object.duration).strftime(Constants::FFMPEG_TIME_FORMAT)
     end
 
     attribute :url do

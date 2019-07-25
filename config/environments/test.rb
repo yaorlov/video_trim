@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'shrine/storage/memory'
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -42,10 +40,10 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  Shrine.storages = {
-    cache: Shrine::Storage::Memory.new,
-    store: Shrine::Storage::Memory.new
-  }
+  # Shrine.storages = {
+  #   cache: Shrine::Storage::Memory.new,
+  #   store: Shrine::Storage::Memory.new
+  # }
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
@@ -54,24 +52,25 @@ Rails.application.configure do
     Bullet.bullet_logger = true
     Bullet.raise = true
 
-    redis_creds = Rails.application.credentials[:test][:redis]
+    redis_host = ENV.fetch('REDIS_HOST', Rails.application.credentials.dig(:test, :redis, :host))
+    redis_port = ENV.fetch('REDIS_PORT', Rails.application.credentials.dig(:test, :redis, :port))
 
     JWTSessions.token_store = :redis, {
-      redis_host: redis_creds[:host],
-      redis_port: redis_creds[:port],
+      redis_host: redis_host,
+      redis_port: redis_port,
       redis_db_name: '0',
       token_prefix: 'test_jwt_'
     }
 
     Sidekiq.configure_server do |config|
       config.redis = {
-        url: "redis://#{redis_creds[:host]}:#{redis_creds[:port]}/1"
+        url: "redis://#{redis_host}:#{redis_port}/1"
       }
     end
 
     Sidekiq.configure_client do |config|
       config.redis = {
-        url: "redis://#{redis_creds[:host]}:#{redis_creds[:port]}/1"
+        url: "redis://#{redis_host}:#{redis_port}/1"
       }
     end
   end

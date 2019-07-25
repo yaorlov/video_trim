@@ -24,7 +24,7 @@ describe Api::V1::User::Registration::Operation::Create do
     context 'with empty keys' do
       let(:errors) do
         {
-          email: [I18n.t('errors.filled?')],
+          email: [I18n.t('errors.filled?'), I18n.t('errors.unique_email?')],
           password: [
             I18n.t('errors.filled?'),
             I18n.t('errors.min_size?', num: Constants::PASSWORD_MIN_LENGTH),
@@ -70,8 +70,7 @@ describe Api::V1::User::Registration::Operation::Create do
     context 'with non unique email' do
       let(:user) { create(:user) }
       let(:params) { valid_params.merge(email: user.email) }
-
-      let(:errors) { { email: [I18n.t('errors.email_unique?')] } }
+      let(:errors) { { email: [I18n.t('errors.unique_email?')] } }
 
       it 'has validation errors' do
         expect(result).to be_failure
