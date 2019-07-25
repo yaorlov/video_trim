@@ -85,6 +85,8 @@ RSpec.configure do |config|
   end
 end
 
+RSpec::Matchers.define_negated_matcher :avoid_changing, :change
+
 Dox.configure do |config|
   config.headers_whitelist = %w[Accept Authorization]
 end

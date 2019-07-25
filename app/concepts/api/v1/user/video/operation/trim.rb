@@ -12,15 +12,25 @@ module Api::V1::User::Video::Operation
     }
     fail Macro::Semantic(failure: :not_found)
 
-    step :movie
-    step :transcode
-    step :update_video
-    step :delete_temp_file
+    step :start_processing
+
+    step Rescue(FFMPEG::Error, Timeout::Error, handler: :add_errors) {
+      step :movie
+      step :transcode
+      step :update_video
+      step :delete_temp_file
+    }
+
+    step :finish_processing
 
     def model(ctx, params:, **)
       return false unless params[:request_id]
 
       ctx[:model] = Request.find(params[:request_id])
+    end
+
+    def start_processing(_ctx, model:, **)
+      model.update(status: Request::STATUSES[:processing])
     end
 
     def movie(ctx, model:, **)
@@ -45,10 +55,19 @@ module Api::V1::User::Video::Operation
       transcoded.delete
     end
 
+    def finish_processing(_ctx, model:, **)
+      model.update(status: Request::STATUSES[:done])
+    end
+
     private
 
     def ffmpeg_time(seconds)
       Time.zone.at(seconds).strftime(Constants::FFMPEG_TIME_FORMAT)
+    end
+
+    def add_errors(exception, ctx)
+      ctx[:model].errors.add(:base, exception.message)
+      ctx[:model].update(status: Request::STATUSES[:failed])
     end
   end
 end
