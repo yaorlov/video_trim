@@ -46,11 +46,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  Shrine.storages = {
-    cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/cache'),
-    store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads')
-  }
-
   config.after_initialize do
     Bullet.enable = true
     Bullet.bullet_logger = true
@@ -63,6 +58,11 @@ Rails.application.configure do
       redis_port: redis_creds[:port],
       redis_db_name: '0',
       token_prefix: 'jwt_'
+    }
+
+    Shrine.storages = {
+      cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/cache'),
+      store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads')
     }
   end
 end

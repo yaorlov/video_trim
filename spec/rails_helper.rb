@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'dox'
 require 'spec_helper'
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -64,7 +63,18 @@ RSpec.configure do |config|
   end
 
   config.after(:each, :dox) do |example|
-    example.metadata[:request] = request
+    # rubocop:disable Layout/IndentationWidth, Layout/ElseAlignment, Layout/EndAlignment
+    example.metadata[:request] = if request.headers['CONTENT_TYPE']&.start_with?('multipart/form-data; boundary=')
+      patched_request = request.dup
+      def patched_request.body
+        OpenStruct.new(read: request_parameters.to_json)
+      end
+      patched_request
+    else
+      request
+    end
+    # rubocop:enable Layout/IndentationWidth, Layout/ElseAlignment, Layout/EndAlignment
+
     example.metadata[:response] = response
   end
 
@@ -73,4 +83,8 @@ RSpec.configure do |config|
       example.run
     end
   end
+end
+
+Dox.configure do |config|
+  config.headers_whitelist = %w[Accept Authorization]
 end
