@@ -11,6 +11,10 @@ Rails.application.routes.draw do
           post 'restart', on: :member
         end
       end
+
+      get '/docs', to: lambda { |_env|
+        [200, {}, [File.open(Rails.root.join('public', 'api', 'docs', 'v1', 'index.html')).read]]
+      }
     end
   end
 end
