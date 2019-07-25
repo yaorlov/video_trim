@@ -17,6 +17,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'database_cleaner'
 require 'dox'
+require 'mongoid-rspec'
 require 'sidekiq/testing'
 
 Dir[Rails.root.join('spec', 'api_doc', '**', '*.rb')].each { |f| require f }
@@ -61,6 +62,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include AuthHelpers
   config.include FixtureHelpers
+  config.include Mongoid::Matchers, type: :model
 
   config.before(:suite) do
     Sidekiq::Worker.clear_all

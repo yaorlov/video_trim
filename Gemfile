@@ -78,6 +78,7 @@ end
 
 group :test do
   gem 'database_cleaner'
+  gem 'mongoid-rspec'
   gem 'shrine-memory'
   gem 'simplecov', require: false
 end
