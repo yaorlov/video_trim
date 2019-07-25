@@ -12,6 +12,6 @@ class ApiController < ApplicationController
   end
 
   def not_authorized
-    render json: { error: 'Not authorized' }, status: :unauthorized
+    render_errors({ errors: { nil => ['Not authorized'] } }, 401)
   end
 end

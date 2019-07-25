@@ -2,28 +2,25 @@
 
 require 'rails_helper'
 
-describe 'Api::V1::Users::Video', type: :request do
-  include ApiDoc::V1::Users::Video::Api
+describe 'Api::V1::Users::Request', type: :request do
+  include ApiDoc::V1::Users::Request::Api
 
-  describe 'POST #create' do
-    include ApiDoc::V1::Users::Video::Create
+  let(:user) { create :user }
+
+  before do
+    create_list(:request, 2, user: user)
+  end
+
+  describe 'GET #index' do
+    include ApiDoc::V1::Users::Request::Index
 
     describe 'Success' do
-      let(:user) { create :user }
-      let(:valid_params) do
-        {
-          name: 'test video',
-          source_file: fixture_file_upload('files/short_video.mp4', 'video/mp4'),
-          trimming_start_time: 1,
-          duration: 2
-        }
-      end
+      before { get '/api/v1/users/requests', headers: auth_header(user) }
 
-      before { post '/api/v1/users/video', params: valid_params, headers: auth_header(user) }
-
-      it 'renders video data', :dox do
-        expect(response).to be_created
-        expect(response).to match_schema(VideoSchema::Success)
+      it 'renders all requests', :dox do
+        expect(response).to be_ok
+        # TODO: RequestSchema::Index ?
+        expect(response).to match_schema(RequestSchema::Success)
       end
     end
 

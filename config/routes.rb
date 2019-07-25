@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         resource :registration, only: :create
         resource :session, only: :create
         resource :video, only: :create
+        resources :requests, only: :index
       end
     end
   end
