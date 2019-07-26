@@ -5,22 +5,23 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
-gem 'jsonapi-rails', github: 'jsonapi-rb/jsonapi-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
-# Use Puma as the app server
+
+# Database
 gem 'mongoid', '~> 6.2.0'
+
+# Use Puma as the app server
 gem 'puma', '~> 3.11'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
 # Authentication
 gem 'jwt_sessions', '~> 2.3', '>= 2.3.1'
+
+# JSON API
+gem 'jsonapi-rails', github: 'jsonapi-rb/jsonapi-rails'
 
 # Trailblazer bundle
 gem 'trailblazer-endpoint', github: 'trailblazer/trailblazer-endpoint'
@@ -32,14 +33,8 @@ gem 'dry-validation', '0.11.1'
 # In-memory store
 gem 'redis', '~> 4.0'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
 
 # Files uploading
 gem 'shrine-mongoid', '~> 0.2'

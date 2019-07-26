@@ -21,7 +21,7 @@ describe 'Api::V1::Users::Session', type: :request do
 
       it 'renders auth tokens', :dox do
         expect(response).to be_created
-        expect(response).to match_schema(SessionSchema::Success)
+        expect(response).to match_schema(SessionSchema::Create)
       end
     end
   end

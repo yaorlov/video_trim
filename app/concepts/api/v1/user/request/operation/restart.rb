@@ -6,7 +6,6 @@ module Api::V1::User::Request::Operation
       step :model
     }, fail_fast: true
 
-    # TODO: wrap in transaction
     step :schedule
     step :perform_trimming_worker
     step :renderer_options

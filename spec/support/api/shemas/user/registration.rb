@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module RegistrationSchema
-  Success = Dry::Validation.Schema do
+  Create = Dry::Validation.Schema do
     input :hash?
 
     required(:data).schema do

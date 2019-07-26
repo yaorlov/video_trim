@@ -29,8 +29,6 @@ RUN bundle install --jobs 20 --retry 5
 
 COPY . .
 
-# RUN bin/rake assets:precompile
-
 RUN addgroup -g 1000 -S www-data && adduser -u 1000 -S www-data -G www-data
 
 RUN chown -R www-data:www-data /var/www

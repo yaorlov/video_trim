@@ -21,7 +21,7 @@ describe 'Api::V1::Users::Registration', type: :request do
 
       it 'renders created user', :dox do
         expect(response).to be_created
-        expect(response).to match_schema(RegistrationSchema::Success)
+        expect(response).to match_schema(RegistrationSchema::Create)
       end
     end
   end

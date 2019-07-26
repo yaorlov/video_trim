@@ -7,7 +7,6 @@ module Api::V1::User::Video::Operation
     step :model
     step Contract::Build(constant: Api::V1::User::Video::Contract::Create)
     step Contract::Validate(), fail_fast: true
-    # TODO: transaction?
     step Contract::Persist()
     step :create_trimming_request
     step :perform_trimming_worker
