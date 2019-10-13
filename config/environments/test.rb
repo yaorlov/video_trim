@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -40,4 +42,31 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.raise = true
+
+    redis_host = ENV.fetch('REDIS_HOST', Rails.application.credentials.dig(:test, :redis, :host))
+    redis_port = ENV.fetch('REDIS_PORT', Rails.application.credentials.dig(:test, :redis, :port))
+
+    JWTSessions.token_store = :redis, {
+      redis_host: redis_host,
+      redis_port: redis_port,
+      redis_db_name: '0',
+      token_prefix: 'test_jwt_'
+    }
+
+    Sidekiq.configure_server do |config|
+      config.redis = {
+        url: "redis://#{redis_host}:#{redis_port}/1"
+      }
+    end
+
+    Sidekiq.configure_client do |config|
+      config.redis = {
+        url: "redis://#{redis_host}:#{redis_port}/1"
+      }
+    end
+  end
 end
